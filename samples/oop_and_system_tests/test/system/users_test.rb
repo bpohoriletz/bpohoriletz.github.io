@@ -1,4 +1,5 @@
-require "application_system_test_case"
+require 'application_system_test_case'
+require File.join(Rails.root.to_s, 'test', 'support', 'pages', 'users', 'show')
 
 class UsersTest < ApplicationSystemTestCase
   test "visiting the index" do
@@ -13,6 +14,12 @@ class UsersTest < ApplicationSystemTestCase
     fill_in 'First name', with: 'Bohdan'
     fill_in 'Last name', with: 'Pohorilets'
     click_on 'Create User'
+
+    page = ::Pages::Users::Show.new(url: user_path(User.last))
+    assert page.notice.text == 'User was successfully created.'
+    assert page.edit_user_link.text == 'Edit'
+    assert page.back_link.text == 'Back'
+
     visit users_url
     assert_text 'Bohdan Pohorilets'
   end
