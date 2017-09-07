@@ -1,5 +1,8 @@
 require 'application_system_test_case'
 require File.join(Rails.root.to_s, 'test', 'support', 'pages', 'users', 'show')
+require File.join(Rails.root.to_s, 'test', 'support', 'pages', 'users', 'new')
+require File.join(Rails.root.to_s, 'test', 'support', 'pages', 'users', 'index')
+require File.join(Rails.root.to_s, 'test', 'support', 'pages', 'users', 'edit')
 
 class UsersTest < ApplicationSystemTestCase
   test "visiting the index" do
@@ -9,27 +12,38 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'creating new user' do
-    visit users_url
-    click_on 'New User'
-    fill_in 'First name', with: 'Bohdan'
-    fill_in 'Last name', with: 'Pohorilets'
-    click_on 'Create User'
+    ::Pages::Users::Index.new.instance_eval do
+      visit
+      new_user_link.click
+    end
+
+    ::Pages::Users::New.new.instance_eval do
+      visit
+      first_name.set( 'Bohdan' )
+      last_name.set( 'Pohorilets' )
+      create_user_button.click
+    end
 
     page = ::Pages::Users::Show.new(url: user_path(User.last))
     assert page.notice.text == 'User was successfully created.'
     assert page.edit_user_link.text == 'Edit'
     assert page.back_link.text == 'Back'
 
-    visit users_url
+    ::Pages::Users::Index.new.visit
     assert_text 'Bohdan Pohorilets'
   end
 
   test 'editing existing user' do
     User.new(first_name: 'Bohdan', last_name: 'Pohorilets').save
-    visit edit_user_url(User.first)
-    fill_in 'First name', with: 'First'
-    fill_in 'Last name', with: 'Last'
-    click_on 'Update User'
+
+    ::Pages::Users::Edit.new(url: edit_user_url(User.first)).instance_eval do
+      visit
+      first_name.set( 'First' )
+      last_name.set( 'Last' )
+      update_user_button.click
+    end
+
+    ::Pages::Users::Index.new.visit
     assert_text 'First Last'
   end
 end

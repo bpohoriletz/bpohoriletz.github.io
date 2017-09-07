@@ -1,8 +1,14 @@
 module Pages
   class Base
     Error = Class.new(StandardError)
+    include Rails.application.routes.url_helpers
+
     attr_reader :current_session
-    attr_reader :url
+    attr_reader :http_path
+
+    def visit
+      current_session.visit http_path
+    end
 
     def self.has_node(method_name, selector, default_selector = :css, options = {})
       case default_selector
@@ -12,7 +18,6 @@ module Pages
           current_session.first(default_selector, css_selector.strip, options)
         end
       when :xpath
-        # XPATH accessor
         define_method(method_name) do
           current_session.first(default_selector, selector, options)
         end
@@ -24,9 +29,9 @@ module Pages
     private
 
     # initialize with Capybara session
-    def initialize(url:, css_wrapper: ' ', current_session: Capybara.current_session)
+    def initialize(url: http_path, css_wrapper: ' ', current_session: Capybara.current_session)
       @current_session = current_session
-      @url = url
+      @http_path = url
       @css_wrapper = css_wrapper
     end
   end
