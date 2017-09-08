@@ -12,9 +12,10 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'creating new user' do
-    ::Pages::Users::Index.new.instance_eval do
+    ::Pages::Users::Index.new(test: self).instance_eval do
       visit
       new_user_link.click
+      take_screenshot
     end
 
     ::Pages::Users::New.new.instance_eval do

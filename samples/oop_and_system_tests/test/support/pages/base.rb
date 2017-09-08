@@ -3,11 +3,11 @@ module Pages
     Error = Class.new(StandardError)
     include Rails.application.routes.url_helpers
 
-    attr_reader :test
     attr_reader :current_session
     attr_reader :http_path
+    attr_reader :test
+    delegate :assert, :assert_text, :take_screenshot, to: :test
     delegate :first, :assert_selector, to: :current_session
-    delegate :assert, :assert_text, to: :test
 
     def visit
       current_session.visit http_path
@@ -44,10 +44,10 @@ module Pages
 
     # initialize with Capybara session
     def initialize(test: :test_not_set, url: http_path, css_wrapper: ' ', current_session: Capybara.current_session)
+      @css_wrapper = css_wrapper
       @current_session = current_session
       @http_path = url
       @test = test
-      @css_wrapper = css_wrapper
     end
   end
 end
