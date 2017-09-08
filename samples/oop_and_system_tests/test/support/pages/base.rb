@@ -7,7 +7,7 @@ module Pages
     attr_reader :current_session
     attr_reader :http_path
     delegate :first, :assert_selector, to: :current_session
-    delegate :assert, to: :test
+    delegate :assert, :assert_text, to: :test
 
     def visit
       current_session.visit http_path

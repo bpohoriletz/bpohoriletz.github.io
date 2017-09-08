@@ -19,8 +19,7 @@ class UsersTest < ApplicationSystemTestCase
 
     ::Pages::Users::New.new.instance_eval do
       visit
-      first_name.set( 'Bohdan' )
-      last_name.set( 'Pohorilets' )
+      fill_out_user_form
       create_user_button.click
     end
 
@@ -38,12 +37,13 @@ class UsersTest < ApplicationSystemTestCase
 
     ::Pages::Users::Edit.new(url: edit_user_url(User.first)).instance_eval do
       visit
-      first_name.set( 'First' )
-      last_name.set( 'Last' )
+      fill_out_user_form(first: 'First', last: 'Last')
       update_user_button.click
     end
 
-    ::Pages::Users::Index.new.visit
-    assert_text 'First Last'
+    ::Pages::Users::Index.new(test: self).instance_eval do
+      visit
+      assert_text 'First Last'
+    end
   end
 end

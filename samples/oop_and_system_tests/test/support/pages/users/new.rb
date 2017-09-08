@@ -1,10 +1,11 @@
 require_relative '../base'
+require_relative 'partials/user_form'
 
 module Pages
   module Users
     class New < Pages::Base
-      has_node :first_name,         '#user_first_name'
-      has_node :last_name,          '#user_last_name'
+      include Partials::UserForm
+
       has_node :create_user_button, '//input[@value = "Create User"]', :xpath
 
       private
