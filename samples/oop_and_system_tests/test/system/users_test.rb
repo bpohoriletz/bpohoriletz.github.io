@@ -24,10 +24,10 @@ class UsersTest < ApplicationSystemTestCase
       create_user_button.click
     end
 
-    page = ::Pages::Users::Show.new(url: user_path(User.last))
-    assert page.notice.text == 'User was successfully created.'
-    assert page.edit_user_link.text == 'Edit'
-    assert page.back_link.text == 'Back'
+    ::Pages::Users::Show.new(test: self, url: user_path(User.last)).instance_eval do
+      check_main_elements_presence
+      assert notice.text == 'User was successfully created.'
+    end
 
     ::Pages::Users::Index.new.visit
     assert_text 'Bohdan Pohorilets'
