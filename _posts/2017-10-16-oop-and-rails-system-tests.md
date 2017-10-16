@@ -154,7 +154,7 @@ this is a small first step to understand better how to use page classes
 In this step we will:
 1. Introuduce a new `Pages::Base#visit` method
 2. Include `Rails.application.routes.url_helpers` in `Pages::Base` in
-   orger to have access to the routes inside the class
+   order to have access to the routes inside the class
 3. Add `Pages::Users::New`, `Pages::Users::Edit`, `Pages::Users::Index`
 classes
 4. Use new classes to refactor our sample test
