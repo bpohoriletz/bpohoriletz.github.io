@@ -42,7 +42,7 @@ end
 {% endhighlight %}
 it verifies three things:
 1. If we can visit the index page and if it has the structure we expect
-2. If we can create a new user nad see it on the index user page
+2. If we can create a new user and see it on the index user page
 3. If we can update user information and see the changes on the index
    user page
 
