@@ -10,7 +10,8 @@ google_analytics: UA-108251168-1
 # Minima date format
 minima:
   date_format: "%b %-d, %Y"
-
+plugins:
+- jekyll-feed
 # Build settings
 markdown: kramdown
 theme: minima
