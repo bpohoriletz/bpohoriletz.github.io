@@ -3,7 +3,7 @@ author: bpohoriletz
 email: bohdan.pohorilets@gmail.com
 description: >
   I tink my time to give back to the Rails community has come.
-
+url: "https://bpohoriletz.github.io"
 github_username: bpohoriletz
 google_analytics: UA-108251168-1
 
@@ -12,6 +12,7 @@ minima:
   date_format: "%b %-d, %Y"
 plugins:
   - jekyll-feed
+  - jekyll-sitemap
 # Build settings
 markdown: kramdown
 theme: minima

@@ -234,6 +234,7 @@ PLATFORMS
 DEPENDENCIES
   github-pages
   jekyll-feed
+  jekyll-sitemap
   minima (~> 2.0)
   tzinfo-data
 
