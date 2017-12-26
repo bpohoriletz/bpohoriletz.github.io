@@ -11,10 +11,11 @@ google_analytics: UA-108251168-1
 minima:
   date_format: "%b %-d, %Y"
 plugins:
-- jekyll-feed
+  - jekyll-feed
 # Build settings
 markdown: kramdown
 theme: minima
 exclude:
   - Gemfile
   - Gemfile.lock
+  - samples/oop_and_system_tests/README.md
