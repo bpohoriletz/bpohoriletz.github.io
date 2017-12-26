@@ -1,14 +1,16 @@
 ---
 layout: post
 ---
-* Time: 30-40 min
-* Level: Intermediate/Advanced
-* Code: [GitHub][application]
+* Час: 30-40 min
+* Рівень: Середній/Високий
+* Код: [GitHub][application]
 
-In this post we will take a look at a way to improve sample `Rails 5.1.3 System Test` using POROs, collaborators, delegation and modules.
+В цій статті ми на простому прикладі розглянемо як можна покращити
+`Rails 5.1.3 System Test` використовуючи Plain Old Ruby Objects,
+collaborators, delegators і module.
 
-# STEP #0
-Basic system test, before refactoring
+# Крок #0
+Приклад до рефакторингу
 {% highlight ruby %}
 # test/system/users_test.rb
 require "application_system_test_case"
@@ -40,22 +42,18 @@ class UsersTest < ApplicationSystemTestCase
   end
 end
 {% endhighlight %}
-it verifies three things:
-1. If we can visit the index page and if it has the structure we expect
-2. If we can create a new user and see it on the index user page
-3. If we can update user information and see the changes on the index
-   user page
+Тест перевіряє три речі:
+1. Чи можливо відкрити сторінку зі списком користувачів і чи має вона очікувану структуру
+2. Чи можливо додати нового користувача і чи буде новий користувач на сторінці зі списком користувачів
+3. Чи можливо оновити інформацію про користувача і чи будуть відображені зімни на сторінці зі списком користувачів
 
-# Step #1
-In this step we'll:
-1. Introduce an abstract clas that will help us describe page structure
-and functionality
-2. Add a page class to test show user page
-3. Use new page class in a test
+# Крок #1
+В цьому кроці ми:
+1. Створимо новий абстрактний клас який в майбутному допоможе нам описати структуру та функціонал HTML сторінок
+2. Створимо page class для тестування сторінки з інформацією про користувача
+3. Використаємо новий page class в тесті
 
-As a first step let's introduce an abstract class with a single method that
-will help us specify what elements we have on the page, actions from
-this step can be found in the [corresponding commit][step-one]
+Для початку ми додамо абстрактний клас, який має один метод для визначення елементів на сторінці, зміни можна переглянути у [відповідному комміті][step-one]
 {% highlight ruby %}
 # test/support/pages/base.rb
 module Pages
@@ -92,15 +90,13 @@ module Pages
   end
 end
 {% endhighlight %}
-Let's take a closer look at `initilaize` method and instance variables
-there:
-* `@current_session` - defaults to `Capybara.current_session`,
-collaboratior object that allows us use driver inside `has_node` method
-* `@url` - requidred parameter, URL of the page under test
-* `@css_wrapper` - defaults to an empty string, helpful when all elements
-under test are within an element with particular CSS class
+Давайте детальніше розглянемо метод `initilaize` та instance variables у ньому:
+* `@current_session` - за замовчуванням `Capybara.current_session`,
+об'єкт-collaboratior що дозволяє нам використовувати driver всередині методу `has_node`
+* `@url` - обов'язкова змінна, URL сторінки що тестується
+* `@css_wrapper` - за замовчуванням порожня стрічка, допоміжний параметр, використовується коли всі елементи на сторінці знаходяться всередині елементу з певним CSS класом
 
-Now let's introduse a new class that describes a show user page
+Тепер додамо новий клас що описує сторінку з інформацією про користувача
 {% highlight ruby %}
 # test/support/pages/users/show.rb
 require_relative '../base'
@@ -115,20 +111,18 @@ module Pages
   end
 end
 {% endhighlight %}
-You can see here three ways to identify an element on the page:
-1. By CSS id
-2. By type and text
-3. By xpath
+Є три способи для визначення елементу на сторінці:
+1. За CSS id
+2. За типом і текстом всередині елементу
+3. За xpath
 
-Things to remember:
-* `has_node` is only a wrapper around
-[Capybara::Node::Finders#first][node-element-first] so same thing may be
-done in a few ways
-* `has_node` result is equal to [Capybara::Node::Finders#first][node-element-first], if the element is found it's result is an
-instance of [Capybara::Node::Element][node-element]
+Варто запам'ятати:
+* `has_node` лише обгортка навколо
+[Capybara::Node::Finders#first][node-element-first] тому є різні способи отримати один і той же результат
+* `has_node` повертає такий же результат що й  [Capybara::Node::Finders#first][node-element-first], якщо елемент був знайдений то це об'єкт [Capybara::Node::Element][node-element]
 
 
-Now let's use `Pages::Users::Show` in the test for `UsersController#show`
+Тепер використаємо `Pages::Users::Show` в тесті для  `UsersController#show`
 {% highlight ruby %}
 
   test 'creating new user' do
@@ -148,18 +142,16 @@ Now let's use `Pages::Users::Show` in the test for `UsersController#show`
   end
 
 {% endhighlight %}
-this is a small first step to understand better how to use page classes
+цей крок досить малий, лише для того щоб зрозуміти як використовувати page classes
 
-# Step #2
-In this step we will:
-1. Introuduce a new `Pages::Base#visit` method
-2. Include `Rails.application.routes.url_helpers` in `Pages::Base` in
-   order to have access to the routes inside the class
-3. Add `Pages::Users::New`, `Pages::Users::Edit`, `Pages::Users::Index`
-classes
-4. Use new classes to refactor our sample test
+# Крок #2
+В цьому кроці ми:
+1. Додамо новий `Pages::Base#visit` метод
+2. Додамо `Rails.application.routes.url_helpers` до `Pages::Base` для того щоб мати доступ до routes
+3. Додамо `Pages::Users::New`, `Pages::Users::Edit`, `Pages::Users::Index`
+4. Використаємо нові класи для рефакторингу
 
-I won't include code for new pages here you can find it in the [corresponding commit][step-two]. Let's take a look at how the test looks now instead:
+Я не додаватиму код нових класів тут, його можна знайти у [відповідному комміті][step-two]. Натомість давайте поглянемо на тест, що їх використовує:
 {% highlight ruby %}
 # test/system/users_test.rb
 require 'application_system_test_case'
@@ -212,21 +204,18 @@ class UsersTest < ApplicationSystemTestCase
   end
 end
 {% endhighlight %}
-We have three more steps left, but let's take a look what we've acheived
-already:
-1. Now we use class methods instead of raw selectors so if page
-structure change we will have to change only the corresponding class
-2. Because we use collaborator objects we have nice blocks and it's
-   clear on what page we are an every line
+У нас лишилось ще три кроки попереду проте давайте підсумуємо що ми вже отримали:
+1. Ми використовуємо методи класу а не CSS/XPATH отож якщо структура сторінки зміниться ми повинні будемо змінити лише клас щоб виправити тести
+2. Завдяки використанню collaborator objects код згрупований всередині блоків, його простіше зрозуміти і одразу очевидно на якій сторінці виконується кожна лінія коду
 
-# Step #3
-In this step we will:
-1. Add ability to verify if the element is present in page classes
-2. Add a method to `Pages::Users::Show` to verify page structure
+# Крок #3
+В цьому кроці ми:
+1. Додамо можливість перевіряти чи присутній елемент всередині page classes
+2. Додамо у  `Pages::Users::Show` метод для перевірки структури сторінки
 
-Let's take a look at the changes in the test first ([corresponding commit][step-three])
+Для початку розглянемо зміни в тесті ( всі зміни у [відповідному комміті][step-three])
 
-#### Before
+#### До
 {% highlight ruby %}
   # test/system/users_test.rb
   test 'creating new user' do
@@ -241,7 +230,7 @@ Let's take a look at the changes in the test first ([corresponding commit][step-
   end
 {% endhighlight %}
 
-#### After
+#### Після
 {% highlight ruby %}
   # test/system/users_test.rb
   test 'creating new user' do
@@ -256,7 +245,7 @@ Let's take a look at the changes in the test first ([corresponding commit][step-
   end
 {% endhighlight %}
 
-`Pages::Users::Show#check_main_elements_presence` definition
+Метод `Pages::Users::Show#check_main_elements_presence`
 {% highlight ruby %}
   # test/support/pages/users/show.rb
   def check_main_elements_presence
@@ -265,16 +254,14 @@ Let's take a look at the changes in the test first ([corresponding commit][step-
     back_link_present?
   end
 {% endhighlight %}
-In order to do this step we:
-1. Changed the `Pages::Base#initialize` to accept new collaborator
-object `test:`
-2. Changed the `Pages::Base#has_node` to define both accessor and
-`*_present?` methods
+Для отримання такого результату ми:
+1. Змінили `Pages::Base#initialize` - тепер він очікує новий об'єкт-collaborator  `test:`
+2. Змінили `Pages::Base#has_node` - тепер він додає метод для доступу до елементу та перевірки наявності елементу на сторінці -  `*_present?`
 
-# Step #4
-In this step we will extract functionality into a module ([corresponding_commit][step-four])
+# Крок #4
+В цьому кроці ми вилучимо спільний функціонал у модуль ([відповідний комміт][step-four])
 
-Let's first compare `Pages::User::Edit` and `Pages::User::New`
+Для початку порівняємо `Pages::User::Edit` та `Pages::User::New`
 {% highlight ruby %}
   # pages/user/edit.rb
   require_relative '../base'
@@ -306,12 +293,9 @@ Let's first compare `Pages::User::Edit` and `Pages::User::New`
     end
   end
 {% endhighlight %}
-they both have two same nodes `first_name` and `last_name`, which isn't
-strange - we render same partial `form` on both pages. Except for that
-when testing these pages we fill out this form, let's extract these two
-pieces to a module.
+обидва мають однакові елементи `first_name` та `last_name`, що не дивно - ми render один і той самий partial `form` на  обох сторінках. Окрім того ми заповнюємо цю форму коли тестуємо ці сторінки. Давайте вилучимо спільний функціонал у модуль.
 
-#### `Pages::Users::Partials::UserForm` module
+#### `Pages::Users::Partials::UserForm` модуль
 {% highlight ruby %}
 # test/support/pages/users/partials/user_form.rb
 module Pages
@@ -332,7 +316,7 @@ module Pages
   end
 end
 {% endhighlight %}
-#### Pages after refactoring
+#### Page classes після рефакторингу
 {% highlight ruby %}
   # pages/user/edit.rb
   require_relative '../base'
@@ -365,18 +349,17 @@ end
   end
 {% endhighlight %}
 
-# Step #5
-In This step we will:
-1. Add ability to take screenshots to the page classes
-2. Compare test we had before Step #1 and after Step #5
+# Крок #5
+В цьому кроці ми:
+1. Додамо можливість робити скріншот до page classes
+2. Порівняємо як виглядав тест до Крок #1 та після Крок #5
 
-First item is quite stratightforward, since we already have a test as a
-collaborator in `Pages::Base` we only need to add `take_screenshot` to a
-list of methods we delegate, you can find changes in the
-[corresponding commit][step-five]
+Перша частина досить проста, оскільки ми вже маємо тест як об'єкт-collaborator
+у  `Pages::Base` нам лише потрібно додати `take_screenshot` до списку методів які ми делегуємо,
+всі зміни можна переглянути у [відповідному комміті][step-five]
 
-Now let's compare what we had in the beginning
-#### Before
+Тепер давайте порівняємо що ми мали на початку і як тест виглядає після рефакторингу
+#### До
 {% highlight ruby %}
 # test/system/users_test.rb
 require "application_system_test_case"
@@ -408,8 +391,7 @@ class UsersTest < ApplicationSystemTestCase
   end
 end
 {% endhighlight %}
-and how the test looks now
-#### After
+#### Після
 {% highlight ruby %}
 # test/system/users_test.rb
 require 'application_system_test_case'
@@ -463,43 +445,32 @@ class UsersTest < ApplicationSystemTestCase
   end
 end
 {% endhighlight %}
-after version has few advantages, they will be listed in a summary
-section
+версія 'Після' має певні переваги, ми перерахуємо їх у підсумку
 
-# Summary
+# Підсумок
 
-Advantages of the OO approarch:
-1. Tests are less brittle - if page structure/logic changes you will
-need to change only corresponding page class
-2. Tests are more readable - because of `instance_eval` blocks you
-always know which page are you on
-3. It's much easier to define elements that exist on the page
-4. Same functionality can be extracted
-5. Other team mebers may use page classes in their tests
-6. Pages are POROs, all the beauty/power of Ruby can be used there
+Переваги OO підходу:
+1. Тести менш 'крихкі' - якщо структура чи логіка сторінки зміниться досить буде змінити лише page class
+2. Тести більш зрозумілі - завдяки використанню `instance_eval` та блоків завжди зрозуміло на якій сторінці ви знаходитесь
+3. Значно простіше описати структуру сторінки
+4. Однаковий функціонал можна помістити в модуль
+5. Інші члени команди можуть використовувати готові page classes
+6. Pages classes є POROs, Ви можете використовувати всю красу/потужність Ruby в них
 
-Code:
-* [Apllication][application]
-* [Step #1][step-one]
-* [Step #2][step-two]
-* [Step #3][step-three]
-* [Step #4][step-four]
-* [Step #5][step-five]
+Код:
+* [Проект][application]
+* [Крок #1][step-one]
+* [Крок #2][step-two]
+* [Крок #3][step-three]
+* [Крок #4][step-four]
+* [Крок #5][step-five]
 
 
-# Things to think about:
-1. I'm not happy with the fact that `Pages::Base` has `include Rails.application.routes.url_helpers`. This is done only to show that
-if the page URL is static it can become a part of the page class, there
-should be a better way to acheive it
-2. `has_node` works only for a single element, would be cool to have `has_nodes` for collections. Once again page classes are POROs so
-thay may and should be changed to fit your needs
-3. Folder with page classes may be a part of autoload paths, but not
-   everyone likes autoloading
-4. Depending on a test framework delegated methods in `Pages::Base` will differ, but it can be used with other test frameworks (like RSpec) too
-5. Instead of having multiple test there could be one test, you won't
-   truncate database, you may have tests grouped by the user that is
-   logged in, additional data in the database may help you discover bugs
-   or make your hate your life :)
+# Для роздумів:
+1. Мені не подобається що `Pages::Base` має `include Rails.application.routes.url_helpers`.  Це було зроблено лише щоб показати що статичний URL може бути частиною page class, має бути кращий спосіб
+2. `has_node` працює лише з одним елементом, варто додати `has_nodes` для колекцій
+3. В залежності від використаного фреймворку, методи делеговані в `Pages::Base` відрізнятимуться, проте його можна використовувати з іншими фреймворками (RSpec, ...)
+5. Замість багатьох тестів можна мати один супер-тест, тоді не доведеться чистити базу даних, можна групувати частини тесту за роллю користувача. Додаткові дані в базі можуть допомогти знайти глюки або лише ускладнити Ваше життя =)
 
 [application]: https://github.com/bpohoriletz/bpohoriletz.github.io/tree/master/samples/oop_and_system_tests
 [step-one]: https://github.com/bpohoriletz/bpohoriletz.github.io/commit/3803a56838360529898c6522d44c6cecccec2a20#diff-25437258f2fe39fc774476f923daa186
