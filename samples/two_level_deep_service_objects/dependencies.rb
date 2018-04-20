@@ -1,3 +1,8 @@
+require 'active_support'
+require 'active_support/core_ext/object/blank'
+require 'active_support/core_ext/time/calculations'
+require 'active_model'
+
 class StaffActionLogger
   def initialize(*)
     true
