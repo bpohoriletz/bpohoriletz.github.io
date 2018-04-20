@@ -8,7 +8,7 @@ class StaffActionLogger
     true
   end
 
-  def log_name_change(*)
+  def self.log_user_name_change(*)
     true
   end
 end
