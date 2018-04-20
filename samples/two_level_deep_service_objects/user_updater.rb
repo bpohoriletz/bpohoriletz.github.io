@@ -2,6 +2,7 @@ require_relative 'dependencies'
 
 class UserUpdater
   delegate :change_post_owner, to: :guardian
+  delegate :log_name_change, to: :StaffActionLogger
 
   def update(attributes = {})
     old_user_name = user.name.present? ? user.name : ""
@@ -42,19 +43,10 @@ class UserUpdater
   end
 
   def save_user_data(user, old_user_name, attributes)
-    User.transaction do
-      if user.user_option.save && user.user_profile.save && user.save
-        StaffActionLogger.new(@actor).log_name_change(
-          user.id,
-          old_user_name,
-          attributes.fetch(:name) { '' }
-        )
+    return false unless User.transaction { user.user_option.save && user.user_profile.save && user.save }
+    log_name_change( user.id, old_user_name, attributes.fetch(:name) { '' } )
 
-        return true
-      end
-    end
-
-    return false
+    return true
   end
 
   def update_geo_data(user_profile, attributes)
