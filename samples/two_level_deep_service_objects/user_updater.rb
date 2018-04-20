@@ -35,21 +35,8 @@ class UserUpdater
   end
 
   def update_user_option(user_option, attributes)
-    # special handling for theme_key cause we need to bump a sequence number
-    if attributes.key?(:theme_key) && user_option.theme_key != attributes[:theme_key]
-      user_option.theme_key_seq += 1
-    end
-    OPTION_ATTR.each do |attribute|
-      if attributes.key?(attribute)
-        if [true, false].include?(user_option.send(attribute))
-          val = attributes[attribute].to_s == 'true'
-          user_option.send("#{attribute}=", val)
-        else
-          user_option.send("#{attribute}=", attributes[attribute])
-        end
-      end
-    end
-
+    update_theme_key(user_option, attributes)
+    OPTION_ATTR.each { |attribute| update_single_attribute(user_option, attributes, attribute) }
     # automatically disable digests when mailing_list_mode is enabled
     user_option.email_digests = false if user_option.mailing_list_mode
   end
@@ -94,6 +81,23 @@ class UserUpdater
     user.title = attributes.fetch(:title) { user.title } if update_title
     user.locale = attributes.fetch(:locale) { user.locale }
     user.date_of_birth = attributes.fetch(:date_of_birth) { user.date_of_birth }
+  end
+
+  def update_theme_key(user_option, attributes)
+    # special handling for theme_key cause we need to bump a sequence number
+    return false unless attributes.key?(:theme_key) && user_option.theme_key != attributes[:theme_key]
+    user_option.theme_key_seq += 1
+  end
+
+  def update_single_attribute(user_option, attributes, attribute)
+    if attributes.key?(attribute)
+      if [true, false].include?(user_option.send(attribute))
+        val = attributes[attribute].to_s == 'true'
+        user_option.send("#{attribute}=", val)
+      else
+        user_option.send("#{attribute}=", attributes[attribute])
+      end
+    end
   end
 
   def format_url(website)
