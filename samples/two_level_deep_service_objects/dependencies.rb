@@ -50,6 +50,7 @@ class UserProfile
   attr_accessor :profile_background
   attr_accessor :website
   attr_accessor :bio_raw
+  attr_accessor :dismissed_banner_key
 
   def save
     true

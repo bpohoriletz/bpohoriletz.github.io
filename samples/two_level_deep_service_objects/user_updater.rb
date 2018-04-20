@@ -22,15 +22,11 @@ class UserUpdater
     @actor = actor
   end
 
-  def update_user_profile(user_profile, attributes)
-    user_profile.location = attributes.fetch(:location) { user_profile.location }
-    user_profile.dismissed_banner_key = attributes[:dismissed_banner_key] if attributes[:dismissed_banner_key].present?
-    user_profile.website = format_url(attributes.fetch(:website) { user_profile.website })
-    user_profile.profile_background = attributes.fetch(:profile_background) { user_profile.profile_background }
-    user_profile.card_background = attributes.fetch(:card_background) { user_profile.card_background }
-    if SiteSetting.enable_sso && !SiteSetting.sso_overrides_bio
-      user_profile.bio_raw = attributes.fetch(:bio_raw) { user_profile.bio_raw }
-    end
+  def update_user_profile( user_profile, attributes )
+    update_geo_data( user_profile, attributes )
+    update_web_data( user_profile, attributes )
+    update_background_data( user_profile, attributes )
+    update_bio_raw( user_profile, attributes )
   end
 
   def update_user(user, attributes)
@@ -80,6 +76,25 @@ class UserUpdater
     end
 
     return false
+  end
+
+  def update_geo_data(user_profile, attributes)
+    user_profile.location = attributes.fetch(:location) { user_profile.location }
+  end
+
+  def update_web_data(user_profile, attributes)
+    user_profile.website = format_url(attributes.fetch(:website) { user_profile.website })
+    user_profile.dismissed_banner_key = attributes[:dismissed_banner_key] || user_profile.dismissed_banner_key
+  end
+
+  def update_background_data(user_profile, attributes)
+    user_profile.profile_background = attributes.fetch(:profile_background) { user_profile.profile_background }
+    user_profile.card_background = attributes.fetch(:card_background) { user_profile.card_background }
+  end
+
+  def update_bio_raw(user_profile, attributes)
+    return false unless SiteSetting.enable_sso && !SiteSetting.sso_overrides_bio
+    user_profile.bio_raw = attributes.fetch(:bio_raw) { user_profile.bio_raw }
   end
 
   def format_url(website)
