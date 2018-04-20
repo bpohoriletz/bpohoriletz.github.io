@@ -487,7 +487,7 @@ Code:
 * [Step #5][step-five]
 
 
-# Things to think about:
+# Food for thought
 1. I'm not happy with the fact that `Pages::Base` has `include Rails.application.routes.url_helpers`. This is done only to show that
 if the page URL is static it can become a part of the page class, there
 should be a better way to acheive it
