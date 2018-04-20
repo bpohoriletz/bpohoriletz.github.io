@@ -124,6 +124,8 @@ class UserUpdater
     :homepage_id,
   ]
 
+  private
+
   def can_grant_title?(user)
     true
   end

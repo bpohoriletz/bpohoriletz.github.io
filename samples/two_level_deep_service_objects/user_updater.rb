@@ -30,16 +30,8 @@ class UserUpdater
   end
 
   def update_user(user, attributes)
-    user.name = attributes.fetch(:name) { user.name }
-    user.locale = attributes.fetch(:locale) { user.locale }
-    user.date_of_birth = attributes.fetch(:date_of_birth) { user.date_of_birth }
-    if can_grant_title?(user)
-      user.title = attributes.fetch(:title) { user.title }
-    end
-
-    if attributes[:custom_fields].present?
-      user.custom_fields = user.custom_fields.merge( attributes[ :custom_fields ] )
-    end
+    update_user_bio(user, attributes, update_title: can_grant_title?(user) )
+    user.custom_fields = user.custom_fields.merge( attributes.fetch( :custom_fields, {} ) )
   end
 
   def update_user_option(user_option, attributes)
@@ -95,6 +87,13 @@ class UserUpdater
   def update_bio_raw(user_profile, attributes)
     return false unless SiteSetting.enable_sso && !SiteSetting.sso_overrides_bio
     user_profile.bio_raw = attributes.fetch(:bio_raw) { user_profile.bio_raw }
+  end
+
+  def update_user_bio(user, attributes, update_title:)
+    user.name = attributes.fetch(:name) { user.name }
+    user.title = attributes.fetch(:title) { user.title } if update_title
+    user.locale = attributes.fetch(:locale) { user.locale }
+    user.date_of_birth = attributes.fetch(:date_of_birth) { user.date_of_birth }
   end
 
   def format_url(website)
