@@ -10,7 +10,7 @@ code from this perspective - found one [How deep is your code?][other]{:target='
 
 I needed an example of complicated Service Object and
 found it in one of the Discourse source [files][example]{:target='_blank_'}. I'm not criticizing
-this code by any mean and there is an a great example of what I'm going
+this code by any mean and there is a great example of what I'm going
 to try to acheive in the same [repository][good_example]{:target='_blank_'}
 
 I personally prefer small classes, short, single purpose methods over
@@ -24,7 +24,7 @@ big picture in the meantime.
 I don't want to do this, I don't want to look at 5-10 private methods to figure
 out what are the implications of calling a public method, I want public
 method to be able to tell me the story right away, the very first time I
-see it - maybe there is a way?.
+see it - maybe there is a way?
 
 Once I saw a complexity metric described by Sandi Metz in her talk [All the Little Things][talk]{:target='_blank_'} - the Squint Test.
 While this metric was used to measure the complexity of the nested conditionals, we
@@ -345,7 +345,7 @@ Code:
 # Food for thought
 1. These rules are quite easy to follow in Service Objects because
    usually thay describe some process/algorithm - where else they can be
-applied
+applied?
 2. How about delegated methods, can we threat them as private when measuring?
 3. How about accessor methods, can we threat them as private when measuring?
 
