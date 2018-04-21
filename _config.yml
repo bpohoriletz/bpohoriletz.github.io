@@ -2,7 +2,18 @@ title: Simple Ruby
 author: bpohoriletz
 email: bohdan.pohorilets@gmail.com
 description: >
-  I tink my time to give back to the Rails community has come.
+   <cite>I’m not the best Ruby person around and I’m definitely not the best OO designer,
+   but I do have an alternative pattern to suggest.
+   </cite>
+   <br />
+   Sandi Metz
+   <br />
+   <br />
+   <cite>I'm aiming to start a discussion,
+   not a religious war. Strong opinions are welcome.
+   </cite>
+   <br />
+   Sandi Metz
 url: "https://bpohoriletz.github.io"
 github_username: bpohoriletz
 google_analytics: UA-108251168-1
