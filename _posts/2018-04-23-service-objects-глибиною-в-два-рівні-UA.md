@@ -1,5 +1,6 @@
 ---
 layout: post
+post_title: Service Objects глибиною в два рівні в Ruby
 ---
 * Час: 20-30 min
 * Рівень: Beginner/Intermediate

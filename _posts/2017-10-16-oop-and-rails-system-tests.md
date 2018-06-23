@@ -1,5 +1,6 @@
 ---
 layout: post
+post_title: OOP and System Tests in Ruby on Rails
 ---
 * Time: 30-40 min
 * Level: Intermediate/Advanced
