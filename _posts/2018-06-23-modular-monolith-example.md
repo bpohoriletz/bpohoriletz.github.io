@@ -16,8 +16,8 @@ that is built with classic Rails structre - while extraction wasn't easy
 the result was definitely worth it. Here I've extracted a gem and an engine
 from the project into a brand new Rails application and it was painless,
 moreover this extraction improved the design of the engine. I will cover
-iportant pieces of the setup below, but for TLDR people here is a
-[GithubRepo][application], check the `seed.rb` file for creadentials to use.
+important pieces of the setup below, but for TLDR people here is a
+[Github Repo][application], check the `seed.rb` file for creadentials to use.
 
 # Gem Overview #
 The gem allowes you to fetch event data from a Google Calendar
