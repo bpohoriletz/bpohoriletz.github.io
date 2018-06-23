@@ -1,0 +1,24 @@
+/ app/views/account_sessions/new.html.haml
+.ui.piled.compact.segment{ style: 'width: 400px;margin: 100px auto;' }
+  .ui.raised.segment
+    %h1.ui.header
+      %span.color_blue
+        Modular Monolith
+    = form_tag login_path, method: :post do
+      = label_tag 'account_session[email]', t( 'views.login.account_email' ).mb_chars.capitalize, class: 'ui blue ribbon label', style: 'cursor: pointer;'
+      %br
+      .ui.input
+        = text_field_tag 'account_session[email]', params[ :account_session ][ :email ], style: 'margin: 5px;width: 350px;'
+      %br
+      = label_tag 'account_session[password]', t( 'views.login.account_password' ).mb_chars.capitalize, class: 'ui blue ribbon label', style: 'cursor: pointer;'
+      %br
+      .ui.input
+        = password_field_tag 'account_session[password]', params[ :account_session][ :password ], style: 'margin: 5px;width: 350px;'
+      %br
+      .ui.checkbox
+        = check_box_tag 'account_session[remember_me]', 'yes', params[ :account_session ][ :remember_me ].present?
+        = label_tag 'account_session[remember_me]', t( 'views.login.remember_me' ), style: 'cursor: pointer;'
+      %br
+      %br
+      = submit_tag t( 'views.login.login' ), class: 'ui button green', id: 'account_credentials_submit'
+/ END app/views/account_sessions/new.html.haml

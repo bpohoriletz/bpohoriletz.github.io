@@ -1,0 +1,14 @@
+/ app/views/customers/accounts/shared/_account.html.haml
+%tr
+  %td
+    = account.name
+  %td
+    = account.email
+  %td
+    = l account.created_at
+  %td
+    = link_to edit_account_path( account ), data: { remote: true, push: true, target: '#main' } do
+      Edit
+    = link_to account_path( account ), data: { remote: true }, method: :delete do
+      Destroy
+/ END app/views/customers/accounts/shared/_account.html.haml

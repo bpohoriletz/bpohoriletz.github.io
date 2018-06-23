@@ -1,0 +1,10 @@
+/ app/views/accounts/edit.html.haml
+%div
+  = form_for @account, validate: true, data: { remote: true }, html: { class: 'ui form', id: 'edit_account' } do |f|
+    %h2.ui.dividing.header
+      = t( 'views.global.edit' )
+      = @account.name
+    = render partial: 'customers/accounts/shared/form', locals: { account: @account, f: f }
+    = f.submit t( 'views.global.update' ), data: { disable_with: t( 'views.global.wait' ) }, class: 'ui button green'
+    = link_to t( 'views.global.cancel' ), accounts_path, class: 'ui button', data: { remote: true, push: true, target: '#main' }
+/ END app/views/accounts/edit.html.haml

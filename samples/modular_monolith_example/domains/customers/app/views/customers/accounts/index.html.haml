@@ -1,0 +1,14 @@
+/ app/views/accounts/index.html.haml
+%table.ui.table
+  %thead
+    %th
+      = t( 'activerecord.models.account.attributes.name' )
+    %th
+      = t( 'activerecord.models.account.attributes.email' )
+    %th
+      = t( 'activerecord.models.account.attributes.created' )
+    %th
+      &nbsp;
+  %tbody
+    = render partial: 'customers/accounts/shared/account', collection: accounts
+/ END app/views/accounts/index.html.haml

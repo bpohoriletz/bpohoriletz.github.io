@@ -1,0 +1,91 @@
+/ app/views/accounts/show.html.haml
+%h1
+  = t( 'views.profile.account_cabinet' )
+#account_settings.wrapper
+  .ui.top.attached.tabular.menu.tabs_control
+    .active.item
+      = link_to t( 'views.profile.google_calendar' ), '#', data: { element: 'google_calendar_settings' }
+    .item
+      = link_to t( 'views.global.language' ), '#', data: { element: 'language_settings' }
+    .item
+      = link_to t( 'views.global.scheduller' ), '#', data: { element: 'scheduller_settings' }
+  #google_calendar_settings.ui.bottom.attached.tab.segment.active
+    - unless current_account.google_calendar.is_a?( Symbol )
+      %table.ui.celled.table
+        %thead
+          %tr
+            %th
+              = t( 'views.global.calendar' )
+            %th
+              = t( 'views.global.description' )
+            %th
+              ID
+            %th
+              = t( 'views.global.time_zone' )
+        %tbody
+          %tr
+            %td
+              = current_account.google_calendar.summary
+            %td
+              = current_account.google_calendar.description
+            %td
+              = current_account.google_calendar.id
+            %td
+              = current_account.google_calendar.time_zone
+      .ui.button.red
+        = link_to t( 'views.profile.unlink' ), unlink_oauth_path, style: "color: white"
+    - else
+      .ui.action.input
+        .ui.right.attached
+          .ui.label.big
+            = best_in_place current_account.profile, :google_login, as: :input, place_holder: t( 'views.global.google_login' )
+        .ui.button.green.left.attached
+          = link_to t( 'views.profile.link_with_google' ), Customers::AccountDecorator.google_authorization_url, style: "color: white"
+  #language_settings.ui.bottom.attached.tab.segment
+    .ui.fluid.selection.dropdown{ style: 'width: 20rem'}
+      = hidden_field_tag :locale, current_account.profile.locale, id: :account_setting, data: { profile_id: current_account.profile.id, profile: { locale: current_account.profile.locale } }
+      .dropdown.icon
+      .default.text
+        = t( 'views.profile.select_locale' )
+      .menu
+        .item{ data: { value: "ua" } }
+          %i.ua.flag
+          Українська
+        .item{ data: { value: "ru" } }
+          %i.ru.flag
+          Русский
+        .item{ data: { value: "en" } }
+          %i.gb.flag
+          English
+  #scheduller_settings.ui.bottom.attached.tab.segment
+    %p
+      .ui.label
+        = t( 'views.profile.start_hour' )
+      .ui.fluid.selection.dropdown{ style: 'width: 20rem'}
+        = hidden_field_tag :start_hour, current_account.profile.start_hour, id: :account_setting, data: { profile_id: current_account.profile.id, profile: { start_hour: current_account.profile.start_hour } }
+        .dropdown.icon
+        .default.text
+          8:00 AM
+        .menu
+          - (0..12).each do |hour|
+            .item{ data: { value: hour } }
+              #{hour}:00
+          - (13..24).each do |hour|
+            .item{ data: { value: hour } }
+              #{hour}:00
+    %p
+      .ui.label
+        = t( 'views.profile.end_hour' )
+      .ui.fluid.selection.dropdown{ style: 'width: 20rem'}
+        = hidden_field_tag :end_hour, current_account.profile.end_hour, id: :account_setting, data: { profile_id: current_account.profile.id, profile: { end_hour: current_account.profile.end_hour } }
+        .dropdown.icon
+        .default.text
+          19:00
+        .menu
+          - (0..12).each do |hour|
+            .item{ data: { value: hour } }
+              #{hour}:00
+          - (13..24).each do |hour|
+            .item{ data: { value: hour } }
+              #{hour}:00
+/ END app/views/accounts/show.html.haml

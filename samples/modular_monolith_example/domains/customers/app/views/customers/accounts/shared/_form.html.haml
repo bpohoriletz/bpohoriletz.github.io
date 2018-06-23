@@ -1,0 +1,22 @@
+/ app/views/accounts/shared/_form.html.haml
+.required.field
+  = f.label :email, t( 'activerecord.models.account.attributes.email' )
+  = f.text_field :email
+- if @account.new_record?
+  .required.field
+    = f.label :password, t( 'activerecord.models.account.attributes.password' )
+    = f.password_field :password
+  .required.field
+    = f.label :password_confirmation, t( 'activerecord.models.account.attributes.password_confirmation' )
+    = f.password_field :password_confirmation
+= f.fields_for :profile do |profile_form|
+  .required.field
+    = profile_form.label :first_name, t( 'activerecord.models.profile.attributes.first_name' )
+    = profile_form.text_field :first_name
+  .field
+    = profile_form.label :middle_name, t( 'activerecord.models.profile.attributes.middle_name' )
+    = profile_form.text_field :middle_name
+  .required.field
+    = profile_form.label :last_name, t( 'activerecord.models.profile.attributes.last_name' )
+    = profile_form.text_field :last_name
+/ END app/views/accounts/shared/_form.html.haml
