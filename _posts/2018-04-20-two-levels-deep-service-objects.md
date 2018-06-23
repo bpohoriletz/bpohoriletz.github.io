@@ -1,6 +1,6 @@
 ---
 layout: post
-post_title: Two levels deep Service Objects in Ruby
+post_title: '[EN] Two levels deep Service Objects in Ruby'
 ---
 * Time: 20-30 min
 * Level: Beginner/Intermediate

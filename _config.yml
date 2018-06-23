@@ -30,4 +30,3 @@ theme: minima
 exclude:
   - Gemfile
   - Gemfile.lock
-  - samples/oop_and_system_tests/README.md
