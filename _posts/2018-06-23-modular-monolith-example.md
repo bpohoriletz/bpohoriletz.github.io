@@ -12,19 +12,19 @@ Referenced article is among the best I've read in the past year. While I
 don't agree with everything stated there, the ideas described are
 super awesome (this is when I found out there is a limit on a number of
 claps you can give in medium). I've tried to apply them in my pet project
-that is built with classic Rails structre - while extraction wasn't easy
+that is built with classic Rails structure - while extraction wasn't easy
 the result was definitely worth it. Here I've extracted a gem and an engine
 from the project into a brand new Rails application and it was painless,
 moreover this extraction improved the design of the engine. I will cover
 important pieces of the setup below, but for TLDR people here is a
-[Github Repo][application], check the `seed.rb` file for creadentials to use.
+[Github Repo][application], check the `seed.rb` file for credentials to use.
 
 # Gem Overview #
-The gem allowes you to fetch event data from a Google Calendar
+The gem allows you to fetch event data from a Google Calendar
 
 #### **separation of dependencies** ####
 Code in the local gem has it's own dependencies but does not
-rely on a main app, these depencencies were moved from the parent app's
+rely on a main app, these dependencies were moved from the parent app's
 Gemfile into a gem's \*.gemspec
 {% highlight ruby %}
  # gems/google_calendar/google_calendar.gemspec
@@ -54,7 +54,7 @@ and are loaded in initializer
 All Unit tests for the gem were moved to a gem's folder, they can be
 executed independently and in isolation  - navigate to a gems folder
 and run `bundle exec rspec spec/`. In order to make tests run you will
-ned to do a manual setup in helper file
+need to do a manual setup in helper file
 {% highlight ruby %}
   # gems/google_calendar/spec/spec_helper.rb
   1 require 'simplecov'
@@ -96,8 +96,8 @@ and are loaded in the initializer
   5 require 'best_in_place'
   6 require 'authlogic'
 {% endhighlight %}
-engile also depends on a local `google_calendar` gem, it is loaded
-direclty in the Gemfile
+engine also depends on a local `google_calendar` gem, it is loaded
+directly in the Gemfile
 {% highlight ruby %}
   # domains/customers/Gemfile
   1 source 'https://rubygems.org'
@@ -145,7 +145,7 @@ environment in the helper file
 
 #### **separation of migrations** ####
 I believe migration files should not be copied to a parent application,
-requred configuration is specified in engines initializer
+required configuration is specified in engines initializer
 {% highlight ruby %}
   # domains/customers/lib/customers/engine.rb
   1 module Customers
@@ -191,7 +191,7 @@ add this concern to a controller
 
 # Testing Engine/Gem Integration into a main application #
 I believe that tests located in engines/gems should be unit tests - they
-should run fast and stub any external dependencies. It doesn't make sence
+should run fast and stub any external dependencies. It doesn't make sense
 to me to test integration outside of the main applications - System Tests
 are great tool to do this job. A basic example
 {% highlight ruby %}

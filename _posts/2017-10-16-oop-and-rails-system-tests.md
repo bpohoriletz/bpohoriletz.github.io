@@ -49,7 +49,7 @@ it verifies three things:
 
 # Step #1
 In this step we'll:
-1. Introduce an abstract clas that will help us describe page structure
+1. Introduce an abstract class that will help us describe page structure
 and functionality
 2. Add a page class to test show user page
 3. Use new page class in a test
@@ -96,12 +96,12 @@ end
 Let's take a closer look at `initilaize` method and instance variables
 there:
 * `@current_session` - defaults to `Capybara.current_session`,
-collaboratior object that allows us use driver inside `has_node` method
-* `@url` - requidred parameter, URL of the page under test
+collaborator object that allows us use driver inside `has_node` method
+* `@url` - required parameter, URL of the page under test
 * `@css_wrapper` - defaults to an empty string, helpful when all elements
 under test are within an element with particular CSS class
 
-Now let's introduse a new class that describes a show user page
+Now let's introduce a new class that describes a show user page
 {% highlight ruby %}
 # test/support/pages/users/show.rb
 require_relative '../base'
@@ -153,7 +153,7 @@ this is a small first step to understand better how to use page classes
 
 # Step #2
 In this step we will:
-1. Introuduce a new `Pages::Base#visit` method
+1. Introduce a new `Pages::Base#visit` method
 2. Include `Rails.application.routes.url_helpers` in `Pages::Base` in
    order to have access to the routes inside the class
 3. Add `Pages::Users::New`, `Pages::Users::Edit`, `Pages::Users::Index`
@@ -213,7 +213,7 @@ class UsersTest < ApplicationSystemTestCase
   end
 end
 {% endhighlight %}
-We have three more steps left, but let's take a look what we've acheived
+We have three more steps left, but let's take a look what we've achieved
 already:
 1. Now we use class methods instead of raw selectors so if page
 structure change we will have to change only the corresponding class
@@ -371,7 +371,7 @@ In This step we will:
 1. Add ability to take screenshots to the page classes
 2. Compare test we had before Step #1 and after Step #5
 
-First item is quite stratightforward, since we already have a test as a
+First item is quite straightforward, since we already have a test as a
 collaborator in `Pages::Base` we only need to add `take_screenshot` to a
 list of methods we delegate, you can find changes in the
 [corresponding commit][step-five]
@@ -476,7 +476,7 @@ need to change only corresponding page class
 always know which page are you on
 3. It's much easier to define elements that exist on the page
 4. Same functionality can be extracted
-5. Other team mebers may use page classes in their tests
+5. Other team members may use page classes in their tests
 6. Pages are POROs, all the beauty/power of Ruby can be used there
 
 Code:
@@ -491,9 +491,9 @@ Code:
 # Food for thought
 1. I'm not happy with the fact that `Pages::Base` has `include Rails.application.routes.url_helpers`. This is done only to show that
 if the page URL is static it can become a part of the page class, there
-should be a better way to acheive it
+should be a better way to achieve it
 2. `has_node` works only for a single element, would be cool to have `has_nodes` for collections. Once again page classes are POROs so
-thay may and should be changed to fit your needs
+they may and should be changed to fit your needs
 3. Folder with page classes may be a part of autoload paths, but not
    everyone likes autoloading
 4. Depending on a test framework delegated methods in `Pages::Base` will differ, but it can be used with other test frameworks (like RSpec) too

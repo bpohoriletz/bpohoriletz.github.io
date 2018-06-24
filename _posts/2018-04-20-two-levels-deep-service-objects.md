@@ -12,7 +12,7 @@ code from this perspective - found one [How deep is your code?][other]{:target='
 I needed an example of complicated Service Object and
 found it in one of the Discourse source [files][example]{:target='_blank_'}. I'm not criticizing
 this code by any mean and there is a great example of what I'm going
-to try to acheive in the same [repository][good_example]{:target='_blank_'}
+to try to achieve in the same [repository][good_example]{:target='_blank_'}
 
 I personally prefer small classes, short, single purpose methods over
 the one big piece of code. Having said that I have to admit that this approach
@@ -178,7 +178,7 @@ This step was divided into few smaller chunks:
   - #2.2.3 Refactor `UserUpdater#update_user_option` method ([commit][step-2.2.3])
   - #2.2.4 Refactor `UserUpdater#save_user_data` method ([commit][step-2.2.4])
 
-I'll skip details here because those are quite straightforwad extractions, they were done to simplify
+I'll skip details here because those are quite straightforward extractions, they were done to simplify
 `UserUpdater#update` method, make it small and easy to understand.
 {% highlight ruby %}
 # user_updater.rb
@@ -207,7 +207,7 @@ extraction. From the method definition we no longer see that:
    somewhere) `true`/`false` depending on the
    result of the transaction
 
-In addition to hiding information, I storngly dislike how new
+In addition to hiding information, I strongly dislike how new
 `UserUpdater#update_user_profile` method looks - it's a private method that
 consists of only other private methods, and once again - no conditionals
 inside
@@ -319,7 +319,7 @@ class UserUpdater
 I believe longer version has the following benefits:
 1. Code tells great story with lots of implementation details
 2. It follows Open/Closed principle
-3. Youre always at most one step away from the full private method
+3. You're always at most one step away from the full private method
    definition
 
 # Summary
@@ -345,7 +345,7 @@ Code:
 
 # Food for thought
 1. These rules are quite easy to follow in Service Objects because
-   usually thay describe some process/algorithm - where else they can be
+   usually they describe some process/algorithm - where else they can be
 applied?
 2. How about delegated methods, can we threat them as private when measuring?
 3. How about accessor methods, can we threat them as private when measuring?
