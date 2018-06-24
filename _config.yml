@@ -23,7 +23,6 @@ minima:
   date_format: "%b %-d, %Y"
 plugins:
   - jekyll-feed
-  - jekyll-sitemap
 # Build settings
 markdown: kramdown
 theme: minima
