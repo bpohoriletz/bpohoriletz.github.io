@@ -17,7 +17,7 @@ Manges][reference]{:target='_blank_'}
 в проекті, але для TLDR читачів ось є
 [Github Repo][application], в файлі `seed.rb` знаходяться логін і пароль.
 
-# Gem Overview #
+# Огляд Gem #
 Локальний gem дозволяє отримати дані про події з Google Calendar
 
 #### **розділення залежностей** ####
@@ -67,10 +67,10 @@ exec rspec spec/`. Необхідні налаштування показано 
   6 require 'factories/event_factories'
 {% endhighlight %}
 
-# Engine Overview #
+# Огляд Engine #
 Engine надає можливість аутентифікації за допомогою authlogic
 
-#### ** розділення залежностей ** ####
+#### **розділення залежностей** ####
 Процес такий же як і для gems, всі залежності перенесено в файл \*.gemspec
 {% highlight ruby %}
  # domains/customers/customers.gemspec
