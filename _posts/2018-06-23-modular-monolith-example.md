@@ -1,6 +1,7 @@
 ---
 layout: post
 post_title: '[EN] Modular Monolith example in Ruby on Rails'
+title: '[EN] Modular Monolith example in Ruby on Rails'
 ---
 * Time: 20-30 min
 * Level: Intermediate/Advanced

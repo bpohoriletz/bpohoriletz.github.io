@@ -1,6 +1,7 @@
 ---
 layout: post
 post_title: '[UA] ООП та системні тести в Ruby on Rails'
+title: '[UA] ООП та системні тести в Ruby on Rails'
 ---
 * Час: 30-40 min
 * Рівень: Середній/Високий

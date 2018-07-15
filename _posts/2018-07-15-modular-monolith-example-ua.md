@@ -1,6 +1,7 @@
 ---
 layout: post
 post_title: '[UA] Приклад архітектури Модульний Моноліт в Ruby on Rails'
+title: '[UA] Приклад архітектури Модульний Моноліт в Ruby on Rails'
 ---
 * Time: 20-30 min
 * Level: Intermediate/Advanced
