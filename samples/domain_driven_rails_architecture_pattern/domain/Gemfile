@@ -1,0 +1,18 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+gem 'activerecord'
+# Use postgresql as the database for Active Record
+gem 'pg', '>= 0.18', '< 2.0'
+
+group :development, :test do
+  gem 'pry-byebug'
+  gem 'rspec-rails'
+end
+
+group :test do
+  gem 'database_cleaner'
+  gem 'factory_bot'
+end

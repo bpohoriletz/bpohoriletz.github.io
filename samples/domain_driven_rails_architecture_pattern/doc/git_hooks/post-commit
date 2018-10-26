@@ -1,0 +1,27 @@
+#!/bin/sh
+printf "Would you like to run quality checks y/n?  "
+read -r input
+if [ $input == "y" ];then
+  rails_best_practices . --format html --output-file doc/best.html
+  reek -f html > doc/reek.html
+fi
+
+printf "Would you like to run security checks y/n?  "
+read -r input
+if [ $input == "y" ];then
+  brakeman
+fi
+
+finished=false
+while ! $finished; do
+  printf "Would you like to run mutations y/n?  "
+  read -r input
+  if [ $input == "y" ]
+  then
+    printf "Please enter what to mutate: "
+    read -r input
+    RAILS_ENV=test bundle exec mutant -r ./config/environment --use rspec $input
+  else
+    finished=true
+  fi
+done

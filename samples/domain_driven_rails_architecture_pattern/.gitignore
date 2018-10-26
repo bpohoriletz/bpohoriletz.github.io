@@ -7,10 +7,6 @@
 # Ignore bundler config.
 /.bundle
 
-# Ignore the default SQLite database.
-/db/*.sqlite3
-/db/*.sqlite3-journal
-
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
@@ -29,3 +25,16 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+# SimpleCov
+/coverage/*
+
+# RSpec
+spec/examples.txt
+representations/spec/examples.txt
+domain/spec/examples.txt
