@@ -2,6 +2,7 @@
 layout: post
 post_title: '[EN] OOP and System Tests in Ruby on Rails'
 title: '[EN] OOP and System Tests in Ruby on Rails'
+description: 'An effort to improve Rails System Test using POROs, collaborators, delegation and modules'
 ---
 * Time: 30-40 min
 * Level: Intermediate/Advanced

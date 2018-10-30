@@ -2,6 +2,7 @@
 layout: post
 post_title: '[UA] ООП та системні тести в Ruby on Rails'
 title: '[UA] ООП та системні тести в Ruby on Rails'
+description: 'Як покращити Rails System Test використовуючи Plain Old Ruby Objects, collaborators, delegators і module'
 ---
 * Час: 30-40 min
 * Рівень: Середній/Високий

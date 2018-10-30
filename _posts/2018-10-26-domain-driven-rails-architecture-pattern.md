@@ -2,6 +2,9 @@
 layout: post
 post_title: '[EN] Domain Driven Rails Architecture'
 title: '[EN] Domain Driven Rails Architecture'
+description: 'The following article will describe an architecture of a Rails
+application that is a combination of ideas froma DDD and referenced articles
+as well as a few additional tools to monitor the quality of the code.'
 ---
 * Time: 30-40 min
 * Level: Intermediate/Advanced
@@ -109,7 +112,7 @@ are fully functional.
 # **Separation of environments and building independent test suites** #
 
 Since we've separated the representation and domain having separate test
-suite for each would be beneficial - prperly implemented those suites would
+suite for each would be beneficial - properly implemented those suites would
 be faster, isolated and independent. Let's prepare environments for them
 first:
   1. Introduce separate `Gemfile` and `Gemfile.lock` for representations

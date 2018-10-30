@@ -9,6 +9,7 @@
   <meta name="twitter:creator" content="@_bpohoriletz" />
   <meta name="twitter:title" content="{{page.title}}" />
   <meta name="twitter:url" content="{{page.url}}" />
+  <meta name="twitter:description" content="{{ page.description }}">
   <!-- END TWITTER-->
   <title>{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
   <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
