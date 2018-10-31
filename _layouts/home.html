@@ -16,6 +16,9 @@ layout: default
 
         <h2>
           <a class="post-link" href="{{ post.url | relative_url }}">{{ post.post_title | escape }}</a>
+          <p class="post-meta">
+            {{post.description | escape}}
+          </p>
         </h2>
       </li>
     {% endfor %}

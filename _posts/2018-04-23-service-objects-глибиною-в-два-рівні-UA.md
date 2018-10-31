@@ -2,7 +2,7 @@
 layout: post
 post_title: '[UA] Service Objects глибиною в два рівні в Ruby'
 title: '[UA] Service Objects глибиною в два рівні в Ruby'
-description: 'Нехай Service Objects одразу, з першого погляду дають зрозуміти що саме відбувається'
+description: 'Тепер ваші Service Objects одразу розкажуть що саме відбувається всередині'
 ---
 * Час: 20-30 min
 * Рівень: Beginner/Intermediate

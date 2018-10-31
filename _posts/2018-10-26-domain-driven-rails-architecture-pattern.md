@@ -3,7 +3,7 @@ layout: post
 post_title: '[EN] Domain Driven Rails Architecture'
 title: '[EN] Domain Driven Rails Architecture'
 description: 'The following article will describe an architecture of a Rails
-application that is a combination of ideas froma DDD and referenced articles
+application that is a combination of ideas from DDD and referenced articles
 as well as a few additional tools to monitor the quality of the code.'
 ---
 * Time: 30-40 min
