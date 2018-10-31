@@ -15,9 +15,12 @@ description: >
    <br />
    Sandi Metz
 url: "https://bpohoriletz.github.io"
+baseurl: ""
 github_username: bpohoriletz
 twitter_username: bpohoriletz
 google_analytics: UA-108251168-1
+disqus:
+  shortname: bpohoriletz
 
 # Minima date format
 minima:
