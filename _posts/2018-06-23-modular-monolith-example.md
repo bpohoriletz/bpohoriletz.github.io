@@ -5,6 +5,7 @@ title: '[EN] Modular Monolith example in Ruby on Rails'
 description: "Here I've extracted a gem and an engine
 from the project into a brand new Rails application and it was painless,
 moreover this extraction improved the design of the engine"
+lang: 'enUS'
 ---
 * Time: 20-30 min
 * Level: Intermediate/Advanced

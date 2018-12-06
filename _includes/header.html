@@ -22,9 +22,11 @@
           {% for path in page_paths %}
             {% assign my_page = site.pages | where: "path", path | first %}
             {% if my_page.title %}
-            <a class="page-link" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
+              <a class="page-link" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
             {% endif %}
           {% endfor %}
+          <a class="page-link" href="/ua" style="margin-right:0;"><img src="/assets/ukUA.png" alt="Статті на Українській" height="20" width="20"></a>
+          <a class="page-link" href="/"><img src="/assets/enUS.png" alt="Posts in English" height="20" width="20"></a>
         </div>
       </nav>
     {% endif %}

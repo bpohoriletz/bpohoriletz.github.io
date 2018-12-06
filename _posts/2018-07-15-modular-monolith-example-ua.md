@@ -3,6 +3,7 @@ layout: post
 post_title: '[UA] Приклад архітектури Модульний Моноліт в Ruby on Rails'
 title: '[UA] Приклад архітектури Модульний Моноліт в Ruby on Rails'
 description: 'Опис створення локальних gem та engine в проекті'
+lang: 'ukUA'
 ---
 * Time: 20-30 min
 * Level: Intermediate/Advanced

@@ -3,6 +3,7 @@ layout: post
 post_title: '[EN] Two levels deep Service Objects in Ruby'
 title: '[EN] Two levels deep Service Objects in Ruby'
 description: 'Make your Service Objects tell the good story right away, the very first time you see them'
+lang: 'enUS'
 ---
 * Time: 20-30 min
 * Level: Beginner/Intermediate
