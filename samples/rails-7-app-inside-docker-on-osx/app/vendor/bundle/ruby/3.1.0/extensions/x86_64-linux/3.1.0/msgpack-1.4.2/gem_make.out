@@ -1,0 +1,88 @@
+current directory: /web/vendor/bundle/ruby/3.1.0/gems/msgpack-1.4.2/ext/msgpack
+/usr/local/bin/ruby -I /usr/local/lib/ruby/3.1.0 -r ./siteconf20220118-110-d3de28.rb extconf.rb
+checking for ruby/st.h... yes
+checking for st.h... no
+checking for rb_str_replace() in ruby.h... yes
+checking for rb_intern_str() in ruby.h... yes
+checking for rb_enc_interned_str() in ruby.h... yes
+checking for rb_sym2str() in ruby.h... yes
+checking for rb_str_intern() in ruby.h... yes
+checking for rb_block_lambda() in ruby.h... yes
+checking for rb_hash_dup() in ruby.h... yes
+checking for rb_hash_clear() in ruby.h... yes
+creating Makefile
+
+current directory: /web/vendor/bundle/ruby/3.1.0/gems/msgpack-1.4.2/ext/msgpack
+make DESTDIR\= clean
+
+current directory: /web/vendor/bundle/ruby/3.1.0/gems/msgpack-1.4.2/ext/msgpack
+make DESTDIR\=
+compiling buffer.c
+compiling buffer_class.c
+buffer_class.c: In function ‘read_until_eof’:
+buffer_class.c:261:17: warning: passing argument 3 of ‘rb_rescue2’ from incompatible pointer type [-Wincompatible-pointer-types]
+  261 |                 read_until_eof_error, (VALUE)(void*) args,
+      |                 ^~~~~~~~~~~~~~~~~~~~
+      |                 |
+      |                 VALUE (*)(VALUE) {aka long unsigned int (*)(long unsigned int)}
+In file included from /usr/local/include/ruby-3.1.0/ruby/ruby.h:40,
+                 from /usr/local/include/ruby-3.1.0/ruby.h:38,
+                 from compat.h:22,
+                 from buffer_class.c:19:
+/usr/local/include/ruby-3.1.0/ruby/internal/iterator.h:388:63: note: expected ‘VALUE (*)(VALUE,  VALUE)’ {aka ‘long unsigned int (*)(long unsigned int,  long unsigned int)’} but argument is of type ‘VALUE (*)(VALUE)’ {aka ‘long unsigned int (*)(long unsigned int)’}
+  388 | VALUE rb_rescue2(VALUE (*b_proc)(VALUE), VALUE data1, VALUE (*r_proc)(VALUE, VALUE), VALUE data2, ...);
+      |                                                       ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~
+buffer_class.c: At top level:
+cc1: note: unrecognized command-line option ‘-Wno-self-assign’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-parentheses-equality’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-constant-logical-operand’ may have been intended to silence earlier diagnostics
+compiling extension_value_class.c
+compiling factory_class.c
+compiling packer.c
+In file included from packer.h:22,
+                 from packer.c:19:
+packer.c: In function ‘msgpack_packer_write_other_value’:
+packer_ext_registry.h:129:9: warning: ‘lookup_class’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+  129 |         rb_hash_aset(pkrg->cache, lookup_class, superclass_type);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+packer_ext_registry.h:85:11: note: ‘lookup_class’ was declared here
+   85 |     VALUE lookup_class;
+      |           ^~~~~~~~~~~~
+packer.c: At top level:
+cc1: note: unrecognized command-line option ‘-Wno-self-assign’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-parentheses-equality’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-constant-logical-operand’ may have been intended to silence earlier diagnostics
+compiling packer_class.c
+compiling packer_ext_registry.c
+compiling rbinit.c
+compiling rmem.c
+compiling unpacker.c
+compiling unpacker_class.c
+unpacker_class.c: In function ‘Unpacker_each’:
+unpacker_class.c:316:17: warning: passing argument 3 of ‘rb_rescue2’ from incompatible pointer type [-Wincompatible-pointer-types]
+  316 |                 Unpacker_rescue_EOFError, self,
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~
+      |                 |
+      |                 VALUE (*)(VALUE) {aka long unsigned int (*)(long unsigned int)}
+In file included from /usr/local/include/ruby-3.1.0/ruby/ruby.h:40,
+                 from /usr/local/include/ruby-3.1.0/ruby.h:38,
+                 from compat.h:22,
+                 from buffer.h:21,
+                 from unpacker.h:21,
+                 from unpacker_class.c:19:
+/usr/local/include/ruby-3.1.0/ruby/internal/iterator.h:388:63: note: expected ‘VALUE (*)(VALUE,  VALUE)’ {aka ‘long unsigned int (*)(long unsigned int,  long unsigned int)’} but argument is of type ‘VALUE (*)(VALUE)’ {aka ‘long unsigned int (*)(long unsigned int)’}
+  388 | VALUE rb_rescue2(VALUE (*b_proc)(VALUE), VALUE data1, VALUE (*r_proc)(VALUE, VALUE), VALUE data2, ...);
+      |                                                       ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~
+At top level:
+unpacker_class.c:225:14: warning: ‘Unpacker_peek_next_type’ defined but not used [-Wunused-function]
+  225 | static VALUE Unpacker_peek_next_type(VALUE self)
+      |              ^~~~~~~~~~~~~~~~~~~~~~~
+cc1: note: unrecognized command-line option ‘-Wno-self-assign’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-parentheses-equality’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-constant-logical-operand’ may have been intended to silence earlier diagnostics
+compiling unpacker_ext_registry.c
+linking shared-object msgpack/msgpack.so
+
+current directory: /web/vendor/bundle/ruby/3.1.0/gems/msgpack-1.4.2/ext/msgpack
+make DESTDIR\= install
+/usr/bin/install -c -m 0755 msgpack.so ./.gem.20220118-110-mp1y2d/msgpack

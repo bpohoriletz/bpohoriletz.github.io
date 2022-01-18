@@ -1,0 +1,26 @@
+current directory: /web/vendor/bundle/ruby/3.1.0/gems/puma-5.5.2/ext/puma_http11
+/usr/local/bin/ruby -I /usr/local/lib/ruby/3.1.0 -r ./siteconf20220118-110-eb0nn6.rb extconf.rb
+checking for BIO_read() in -lcrypto... yes
+checking for SSL_CTX_new() in -lssl... yes
+checking for openssl/bio.h... yes
+checking for DTLS_method() in openssl/ssl.h... yes
+checking for TLS_server_method() in openssl/ssl.h... yes
+checking for SSL_CTX_set_min_proto_version(NULL, 0) in openssl/ssl.h... yes
+checking for X509_STORE_up_ref()... yes
+checking for SSL_CTX_set_ecdh_auto(NULL, 0) in openssl/ssl.h... yes
+checking for Random.bytes... yes
+creating Makefile
+
+current directory: /web/vendor/bundle/ruby/3.1.0/gems/puma-5.5.2/ext/puma_http11
+make DESTDIR\= clean
+
+current directory: /web/vendor/bundle/ruby/3.1.0/gems/puma-5.5.2/ext/puma_http11
+make DESTDIR\=
+compiling http11_parser.c
+compiling mini_ssl.c
+compiling puma_http11.c
+linking shared-object puma/puma_http11.so
+
+current directory: /web/vendor/bundle/ruby/3.1.0/gems/puma-5.5.2/ext/puma_http11
+make DESTDIR\= install
+/usr/bin/install -c -m 0755 puma_http11.so ./.gem.20220118-110-1fic28/puma

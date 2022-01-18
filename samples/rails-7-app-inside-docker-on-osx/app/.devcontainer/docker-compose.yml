@@ -1,0 +1,20 @@
+version: '3.8'                                                                                                             
+services:                    
+  # name of the service
+  web:                                                                                                                     
+    build:                                                                                                                 
+      context: .       
+      # use Dockerfile for build
+      dockerfile: Dockerfile                                                                                               
+    volumes:
+      # mount parent directory as /web with cahed configuration for speedup 
+      - /Users/bebesuk/Documents/bpohoriletz.github.io/samples/rails-7-app-inside-docker-on-osx/app/.devcontainer/..:/web:cached                                            
+    # set mounted directory as default
+    working_dir: /web                                                                                                     
+    command: sleep infinity
+    environment:
+      # install gems to the folder with project files
+      - BUNDLE_PATH=vendor/bundle
+    ports:
+      # expose port 3000 to the outer world
+      - '3000:3000'
