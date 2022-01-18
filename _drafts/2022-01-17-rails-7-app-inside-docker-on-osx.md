@@ -167,6 +167,12 @@ you have to start the server at `0.0.0.0` in addition to the port exposing to ma
 Now if you navigate to [http://localhost:3000][loca]{:target='_blank_'}
 you should see the default rails page
 
+#### Extra
+````sh
+image: ruby-$DOCKER_RUBY_VERSION-rails-$DOCKER_RAILS_VERSION
+````
+this will add a tag to container with information on ruby/rails vrsion
+
 [appl]: https://github.com/bpohoriletz/bpohoriletz.github.io/tree/master/samples/rails-7-app-inside-docker-on-osx/app
 [gist]: https://gist.github.com/bpohoriletz/9ba8c5a8eb92727ec24dccfe269f5ea8
 [avdi]: https://graceful.dev/courses/tapastry/modules/2021/
