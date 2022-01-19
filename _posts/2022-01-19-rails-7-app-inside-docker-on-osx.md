@@ -1,13 +1,13 @@
 ---
 layout: post
-post_title: '[EN] Part 1 - Rails 7 application inside Docker on macOS'
-title: '[EN] Part 1 - Rails 7 application inside Docker on macOS'
+post_title: '[EN] Rails 7 application inside Docker on macOS - part one'
+title: '[EN] Rails 7 application inside Docker on macOS - part one'
 description: 'How to create Rails 7 app with all dependencies hidden inside a
 Docker container'
 lang: 'enUS'
 ---
 * Time: 5-10 min
-* Level: Beginner/Intermediate
+* Level: Beginner
 * Code: [Application][appl]{:target='_blank_'}
 * References:
   * [Graceful Dev – Avdi Grimm][avdi]{:target='_blank_'}
@@ -18,13 +18,13 @@ Sometimes we want to play with the new version of Ruby/Rails, but in
 order to do so we need to install dependencies which quite often is not
 so seamless. So let's take a look how to use Docker and shell commands in
 order to quickly start new project with any combination of Ruby/Rails
-version.
+version and keep the macOS itself clean as a baby's bottom.
 
 #### TL;DR - [Gist][gist]{:target='_blank_'}
 
 # Process step-by-step
 
-The overall process quite straightforward and consists of few dependent steps
+The overall process is quite straightforward and consists of seven dependent steps
 
 1. [Create a folder for a project on local drive](#step-1---create-a-folder-for-a-project-on-local-drive)
 2. [Create `Gemfile` with ruby/rails version within this folder](#step-2---create-gemfile-with-rubyrails-version-within-this-folder)
@@ -32,10 +32,10 @@ The overall process quite straightforward and consists of few dependent steps
 4. [Build a Docker image](#step-4---build-a-docker-image)
 5. [Install rails non the new container](#step-5---install-rails-in-the-new-container)
 6. [Create new rails project from Docker image with files stored on the
-local drive](#step-6---create-new-rails-project-from-docker-image-with-files-stored-on-the-local-drive)
+local drive](#step-6---create-new-rails-project)
 7. [Start the server](#step-7---start-the-server)
 
-Now let's look at each step in detail:
+Now let's take a look at each step in detail:
 
 #### Step #1 - Create a folder for a project on local drive
 ````sh
@@ -110,14 +110,15 @@ this section will tell the Docker Compose to use the `Dockerfile` within
 ...
 ````
 we will mount parent directory `app/` to the image as `/web` and set it
-as a default directory for work, `:cached` part is to speedup bind-mounted directories on macOS
+as a default directory for work, `:cached` part is added to improve the performance
+of bind-mounted directories on macOS
 
 ````sh
 ...
     command: sleep infinity
 ...
 ````
-this will keep the container running
+this will keep the container running indefinitely
 
 ````sh
 ...
@@ -126,8 +127,8 @@ this will keep the container running
 ...
 ````
 this is done in order to keep installed gems within the
-`/app/vendor/bundle` folder and not install them every time we need to
-run the server
+`/app/vendor/bundle` folder and not install them every time we start the
+container
 
 ````sh
 ...
@@ -172,6 +173,14 @@ you should see the default rails page
 image: ruby-$DOCKER_RUBY_VERSION-rails-$DOCKER_RAILS_VERSION
 ````
 this will add a tag to container with information on ruby/rails vrsion
+
+Don't forget to stop the container with `docker-compose down`
+
+If `Gemfile` does not exist in the `web/` folder:
+- stop all containers
+- delete any built images
+- restart Docker
+- start from the [Step 1](#step-1---create-a-folder-for-a-project-on-local-drive)
 
 [appl]: https://github.com/bpohoriletz/bpohoriletz.github.io/tree/master/samples/rails-7-app-inside-docker-on-osx/app
 [gist]: https://gist.github.com/bpohoriletz/9ba8c5a8eb92727ec24dccfe269f5ea8
