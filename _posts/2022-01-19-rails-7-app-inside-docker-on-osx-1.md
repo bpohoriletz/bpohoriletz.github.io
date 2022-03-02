@@ -1,7 +1,7 @@
 ---
 layout: post
-post_title: '[EN] Rails 7 application inside Docker on macOS - part one'
-title: '[EN] Rails 7 application inside Docker on macOS - part one'
+post_title: '[EN] Rails 7 application inside Docker on macOS: Part one - container'
+title: '[EN] Rails 7 application inside Docker on macOS: Part one - container'
 description: 'How to create Rails 7 app with all dependencies hidden inside a
 Docker container'
 lang: 'enUS'
@@ -182,7 +182,7 @@ If `Gemfile` does not exist in the `web/` folder:
 - restart Docker
 - start from the [Step 1](#step-1---create-a-folder-for-a-project-on-local-drive)
 
-[appl]: https://github.com/bpohoriletz/bpohoriletz.github.io/tree/master/samples/rails-7-app-inside-docker-on-osx/app
+[appl]: https://github.com/bpohoriletz/bpohoriletz.github.io/tree/master/samples/rails-7-app-inside-docker-on-osx
 [gist]: https://gist.github.com/bpohoriletz/9ba8c5a8eb92727ec24dccfe269f5ea8
 [avdi]: https://graceful.dev/courses/tapastry/modules/2021/
 [dock]: https://docs.docker.com/compose/compose-file/compose-file-v3/
