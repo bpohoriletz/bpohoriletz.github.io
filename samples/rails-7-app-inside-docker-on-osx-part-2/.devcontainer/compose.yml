@@ -1,0 +1,54 @@
+version: '3.8'
+volumes:
+  web:
+services:
+  # name of the service
+  web:
+    image: ruby-3.1.0-rails-7.0.1
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    volumes:
+      - web:/web
+    # set mounted directory as default
+    working_dir: /web
+    command: sleep infinity
+    environment:
+      - BUNDLE_PATH=vendor/bundle
+    ports:
+      - 3000:3000
+  web_development:
+    image: dev-db-ruby-3.1.0-rails-7.0.1
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    environment:
+      - LC_ALL=C.UTF-8
+      - POSTGRES_DB=web_development
+      - POSTGRES_USER=web_development
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - 54321:5432
+  web_test:
+    image: test-db-ruby-3.1.0-rails-7.0.1
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    environment:
+      - LC_ALL=C.UTF-8
+      - POSTGRES_DB=web_test
+      - POSTGRES_USER=web_test
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - 54322:5432
+# Set up Mutagen synchronization
+# https://github.com/mutagen-io/mutagen-examples/blob/main/compose/web-go/compose.yml
+x-mutagen:
+  sync:
+    defaults:
+      ignore:
+        vcs: true
+    web:
+      alpha: '..'
+      beta: 'volume://web'
+      mode: 'two-way-resolved'

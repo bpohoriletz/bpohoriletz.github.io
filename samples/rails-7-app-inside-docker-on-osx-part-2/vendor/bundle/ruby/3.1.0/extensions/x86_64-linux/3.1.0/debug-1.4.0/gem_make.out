@@ -1,0 +1,16 @@
+current directory: /web/vendor/bundle/ruby/3.1.0/gems/debug-1.4.0/ext/debug
+/usr/local/bin/ruby -I /usr/local/lib/ruby/3.1.0 -r ./siteconf20220302-114-462mhv.rb extconf.rb
+creating Makefile
+
+current directory: /web/vendor/bundle/ruby/3.1.0/gems/debug-1.4.0/ext/debug
+make DESTDIR\= clean
+
+current directory: /web/vendor/bundle/ruby/3.1.0/gems/debug-1.4.0/ext/debug
+make DESTDIR\=
+compiling debug.c
+compiling iseq_collector.c
+linking shared-object debug/debug.so
+
+current directory: /web/vendor/bundle/ruby/3.1.0/gems/debug-1.4.0/ext/debug
+make DESTDIR\= install
+/usr/bin/install -c -m 0755 debug.so ./.gem.20220302-114-evbrqu/debug
