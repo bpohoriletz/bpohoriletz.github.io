@@ -16,8 +16,9 @@ lang: 'enUS'
 In this part we will add PostgreSQL databases for develpment and test
 environments and use Mutagen to speed things up
 
-**Ukraine is at WAR with Russia now! People are dying every day, we need
-your help!**
+**Ukraine is at WAR with Russia now! World history being written these
+days - become one who was involved! Your grandchildren would love to
+hear the stories!**
 - **[Join our IT Army][it_army]{:target='_blank_'}**
 - **[Spread the word][spread_word]{:target='_blank_'}**
 
@@ -165,8 +166,9 @@ alpha is set to be `..` since `compose.yml` is located inside
 `compose.yml` for convenience
 
 #### Extra
-**Ukraine is at WAR with Russia now! People are dying every day, we need
-your help!**
+**Ukraine is at WAR with Russia now! World history being written these
+days - become one who was involved! Your grandchildren would love to
+hear the stories!**
 - **[Join our IT Army][it_army]{:target='_blank_'}**
 - **[Spread the word][spread_word]{:target='_blank_'}**
 

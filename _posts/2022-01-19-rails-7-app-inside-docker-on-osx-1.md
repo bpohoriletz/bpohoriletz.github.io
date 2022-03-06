@@ -9,10 +9,19 @@ lang: 'enUS'
 * Time: 5-10 min
 * Level: Beginner
 * Code: [Application][appl]{:target='_blank_'}
+* Version: Mar 06, 22
 * References:
   * [Graceful Dev – Avdi Grimm][avdi]{:target='_blank_'}
   * [Docker Docs][dock]{:target='_blank_'}
   * [Alpine, Slim, Stretch, Buster, Jessie, Bullseye — What are the Differences in Docker Images? - Julie Perilla Garcia][juli]{:target='_blank_'}
+
+**Ukraine is at WAR with Russia now! World history being written these
+days - become one who was involved! Your grandchildren would love to
+hear the stories!**
+- **[Join our IT Army][it_army]{:target='_blank_'}**
+- **[Spread the word][spread_word]{:target='_blank_'}**
+
+**Слава Україні! Glory to Ukraine!**
 
 Sometimes we want to play with the new version of Ruby/Rails, but in
 order to do so we need to install dependencies which quite often is not
@@ -77,13 +86,6 @@ be able to compile gems later
 > about the difference between images in [Alpine, Slim, Stretch, Buster, Jessie, Bullseye — What are the Differences in Docker Images?][juli]{:target='_blank_'} by Julie Perilla Garcia
 
 Now let's take a closer look at different pieces of `docker-compose.yml`
-````sh
-echo "version: '3.8'
-...
-````
-this is the Compose file format version, you can find more information
-about this file and available versions at [Docker Docs][dock]{:target='_blank_'}
-
 ````sh
 ...
 services:
@@ -169,6 +171,13 @@ Now if you navigate to [http://localhost:3000][loca]{:target='_blank_'}
 you should see the default rails page
 
 #### Extra
+**Ukraine is at WAR with Russia now! World history being written these
+days - become one who was involved! Your grandchildren would love to
+hear the stories!**
+- **[Join our IT Army][it_army]{:target='_blank_'}**
+- **[Spread the word][spread_word]{:target='_blank_'}**
+
+**Слава Україні! Glory to Ukraine!**
 ````sh
 image: ruby-$DOCKER_RUBY_VERSION-rails-$DOCKER_RAILS_VERSION
 ````
@@ -182,9 +191,16 @@ If `Gemfile` does not exist in the `web/` folder:
 - restart Docker
 - start from the [Step 1](#step-1---create-a-folder-for-a-project-on-local-drive)
 
+#### Revisions
+- Mar 06, 22
+  - removed version from `Dockerfile`. Thanks to [Nick Janetakis][nickj]{:target='_blank_'}
+
+[nickj]: https://www.reddit.com/user/nickjj_/
 [appl]: https://github.com/bpohoriletz/bpohoriletz.github.io/tree/master/samples/rails-7-app-inside-docker-on-osx
 [gist]: https://gist.github.com/bpohoriletz/9ba8c5a8eb92727ec24dccfe269f5ea8
 [avdi]: https://graceful.dev/courses/tapastry/modules/2021/
 [dock]: https://docs.docker.com/compose/compose-file/compose-file-v3/
 [juli]: https://medium.com/swlh/alpine-slim-stretch-buster-jessie-bullseye-bookworm-what-are-the-differences-in-docker-62171ed4531d
 [loca]: http://localhost:3000
+[it_army]: https://t.me/itarmyofukraine2022
+[spread_word]: https://www.pravda.com.ua/eng/
