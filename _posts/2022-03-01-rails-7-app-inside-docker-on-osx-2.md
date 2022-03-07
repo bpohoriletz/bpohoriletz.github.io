@@ -1,17 +1,19 @@
 ---
 layout: post
-post_title: '[EN] Rails 7 application inside Docker on macOS: Part two - database and Mutagen'
-title: '[EN] Rails 7 application inside Docker on macOS: Part two - database and Mutagen'
+post_title: '[EN] Rails 7 application inside Docker®  on macOS: Part two - database and Mutagen'
+title: '[EN] Rails 7 application inside Docker®  on macOS: Part two - database and Mutagen'
 description: 'How to create Rails 7 app with all dependencies hidden inside a
-Docker container'
+Docker®  container'
 lang: 'enUS'
 ---
 * Time: 5-10 min
 * Level: Beginner
 * Code: [Application][appl]{:target='_blank_'}
+* Revision: Mar 7, 22
 * References:
   * [Part one][part_one]{:target='_blank_'}
   * [Mutagen Compose example][mutagen_compose]{:target='_blank_'}
+  * [Docker®  on Mac - how to speed it up?][mutagen]{:target='_blank_'}
 
 In this part we will add PostgreSQL databases for develpment and test
 environments and use Mutagen to speed things up
@@ -30,26 +32,20 @@ hear the stories!**
 
 The overall process is quite straightforward and consists of seven dependent steps
 
-1. [Install mutagen-compose](#step-1---install-mutagen-compose)
-2. [Switch from SQLite to PostgreSQL and use Mutagen Compose](#step-2---switch-from-sqlite-to-postgresql-and-use-mutagen-compose)
-3. [Add test and development databases](#step-3---add-test-and-development-databases)
-4. [Add mutagen](#step-4---add-mutagen)
+1. [Switch from SQLite to PostgreSQL and use Mutagen Compose](#step-1---switch-from-sqlite-to-postgresql-and-use-mutagen-compose)
+2. [Add test and development databases](#step-2---add-test-and-development-databases)
+3. [Add mutagen](#step-3---add-mutagen)
 
 Now let's take a look at each step in detail:
 
-#### Step #1 - Install mutagen-compose
-I'm using Homebrew so it's quite straightforward
-````sh
-brew install mutagen-io/mutagen/mutagen-compose
-````
-
-#### Step #2 - Switch from SQLite to PostgreSQL and use Mutagen Compose
+#### Step #1 - Switch from SQLite to PostgreSQL and use Mutagen Compose
 First let's add required packages for pg gem:
 ````diff
 - 18. && apt-get install -y make gcc git sqlite3 libsqlite3-dev \
 + 18. && apt-get install -y make gcc git build-essential libpq-dev \
 ````
-let's switch from `docker-compose` to `mutagen-compose`:
+let's switch from `docker-compose` to `mutagen-compose` (more on
+`mutagen-compose` later):
 ```diff
 - 43. docker-compose up -d --build
 + 43. mutagen-compose up -d --build
@@ -66,25 +62,12 @@ let's switch from `docker-compose` to `mutagen-compose`:
 also on line 47 we pass `--database=postgresql` flag to build new app
 with PostgreSQL not SQLite
 
-#### Step #3 - Add test and development databases
-First we need a new `Dockerfile` for the database. Let's rename
-`Dockerfile` to `Dockerfile.app` and add `Dockerfile.db`. We will use
-`postgres:14` image:
-
-```diff
-- 19. && rm -rf /var/lib/apt/lists/*" > Dockerfile
-+ 19. && rm -rf /var/lib/apt/lists/*" > Dockerfile.app
-+ 20. # create Dockerfile for databases
-+ 21. echo "FROM postgres:14" > Dockerfile.db
-```
-next let's add two services for development and test databases in
+#### Step #2 - Add test and development databases
+First add two services for development and test databases in
 `docker-compose.yml`:
 ```sh
   web_development:
-    image: dev-db-ruby-3.1.0-rails-7.0.1
-    build:
-      context: .
-      dockerfile: Dockerfile.db
+    image: postgres:14
     environment:
       - LC_ALL=C.UTF-8
       - POSTGRES_DB=web_development
@@ -94,10 +77,7 @@ next let's add two services for development and test databases in
       # expose port 5432 to the host
       - '54321:5432'
   web_test:
-    image: test-db-ruby-3.1.0-rails-7.0.1
-    build:
-      context: .
-      dockerfile: Dockerfile.db
+    image: postgres:14
     environment:
       - LC_ALL=C.UTF-8
       - POSTGRES_DB=web_test
@@ -111,6 +91,8 @@ those entries are quite similar, they have different credentials for
 `username` and `database`. Also they're exposed to host on different ports - development database
 is exposed at port `54321` and test at `54322`. The `POSTGRES_HOST_AUTH_METHOD=trust`
 option is added because otherwise we'd have to specify the password.
+> We do not need a separate `Dockerfile` for the databases, we can
+> directly specify the image to build from with `image: postgres:14`
 
 The last step is to configure the connection from `web` to
 `web_development` and `web_test`. Rails itself expects database to be
@@ -132,18 +114,32 @@ there is no need to change some settings because `web_development` and
 `web_test` are databases used by Rails by default since the project was
 generated within the folder named `web`.
 
-### Step 4 - Add mutagen
-On my local laptop I got consistent 4x performance speedup with this
-setup
+### Step 3 - Add mutagen
 
-first we add a new volume:
+Mutagen is an open-source tool designed for fast and reliable file synchronization. There are
+also other similar tools, like docker-sync but Mutagen has better performance and stability.
+What is interesting for all Mac users is that Mutagen can be used with Docker®  on Mac, as a
+tool for sync files between host and docker volume - it improves performance a lot.
+On my local laptop I got consistent 4x performance boost with this setup.
+
+It also has it's own compose tool `mutagen-compose`. Mutagen Compose is a project that provides
+Mutagen integration with Docker® Compose, allowing you to automatically create Mutagen
+synchronization and forwarding sessions alongside your Compose-based services, volumes,
+and networks. We will be using it to build our images and start services.
+
+First let's install mutagen-compose - I'm using Homebrew so it's quite straightforward for me
+````sh
+brew install mutagen-io/mutagen/mutagen-compose
+````
+
+next we add a new volume to our compose file:
 ```diff
 - 23. echo "version: '3.8'
 + 23. echo "version: '3.8'
 + 24. volumes:
 + 25.   web:
 ```
-next we use this volume in our `web` service:
+and we mount this volume in our `web` service:
 ```diff
 - 34.       - "..":/web:cached
 + 35.       - web:/web
@@ -177,8 +173,13 @@ hear the stories!**
 In case you face issues try the following:
 1. Stop all containers with `mutagen-compose down`
 2. Delete any built images and volumes
-3. Restart Docker
-4. Start from the [Step 2](#step-2---switch-from-sqlite-to-postgresql-and-use-mutagen-compose)
+3. Restart Docker® 
+4. Start from the [Step 1](#step-1---switch-from-sqlite-to-postgresql-and-use-mutagen-compose)
+
+#### Revisions
+- Mar 07, 22
+  - Switched from a separate `Dockerfile` for database to default image
+  from Docker® 
 
 [appl]: https://github.com/bpohoriletz/bpohoriletz.github.io/tree/master/samples/rails-7-app-inside-docker-on-osx-part-2
 [gist]: https://gist.github.com/bpohoriletz/02879b77505bd430daa36f84ce1b9467
@@ -186,3 +187,4 @@ In case you face issues try the following:
 [part_one]: https://bpohoriletz.github.io/2022/01/19/rails-7-app-inside-docker-on-osx.html
 [it_army]: https://t.me/itarmyofukraine2022
 [spread_word]: https://www.pravda.com.ua/eng/
+[mutagen]: https://accesto.com/blog/docker-on-mac-how-to-speed-it-up/

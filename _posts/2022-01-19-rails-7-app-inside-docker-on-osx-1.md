@@ -181,7 +181,7 @@ hear the stories!**
 ````sh
 image: ruby-$DOCKER_RUBY_VERSION-rails-$DOCKER_RAILS_VERSION
 ````
-this will add a tag to container with information on ruby/rails vrsion
+this will add a tag to container with information on ruby/rails version
 
 Don't forget to stop the container with `docker-compose down`
 
