@@ -96,7 +96,7 @@ One last part was to check if Rubocop checks and RSpec suite pass. I run
 `bin/rails new yourprojectname` as an upgrade mechanism.
 
 **Idea:** Changes to generated files have to be minimal in order to put
-them beck easily.
+them back easily.
 
 **Implementation:** Have separate files with changes and load them in
 generated files.
